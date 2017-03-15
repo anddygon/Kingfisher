@@ -26,6 +26,7 @@
 
 import Foundation
 
+public var KingfisherExtraRequestHeadersForNoModifier: [String: String] = [:]
 /// Request modifier of image downloader.
 public protocol ImageDownloadRequestModifier {
     func modified(for request: URLRequest) -> URLRequest?
@@ -35,8 +36,11 @@ struct NoModifier: ImageDownloadRequestModifier {
     static let `default` = NoModifier()
     private init() {}
     func modified(for request: URLRequest) -> URLRequest? {
-        
-        return request
+        var mutableRequest = request
+        for (key, value) in KingfisherExtraRequestHeadersForNoModifier {
+            mutableRequest.setValue(value, forHTTPHeaderField: key)
+        }
+        return mutableRequest
     }
 }
 
