@@ -35,6 +35,7 @@ struct NoModifier: ImageDownloadRequestModifier {
     static let `default` = NoModifier()
     private init() {}
     func modified(for request: URLRequest) -> URLRequest? {
+        
         return request
     }
 }
